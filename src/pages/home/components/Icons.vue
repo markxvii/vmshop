@@ -1,6 +1,6 @@
 <template>
 	<div class="icons">
-		<swiper>
+		<swiper :options="swiperOption">
 			<swiper-slide v-for="(page,index) of pages" :key="index">
 				<div class="icon" v-for="item of page" :key="item.id">
 					<div class="icon-img">
@@ -17,61 +17,20 @@
 <script>
 	export default {
 		name: "HomeIcons",
+		props: {
+			list: Array
+		},
 		data() {
 			return {
-				iconList: [{
-					id: '0001',
-					imgUrl: 'https://gw.alicdn.com/tfs/TB1Wxi2trsrBKNjSZFpXXcXhFXa-183-144.png_.webp',
-					desc: 'Rolex'
-				},
-					{
-						id: '0002',
-						imgUrl: 'https://img.alicdn.com/tfs/TB10UHQaNjaK1RjSZKzXXXVwXXa-183-144.png?getAvatar=1_.webp',
-						desc: 'Panerai'
-					},
-					{
-						id: '0003',
-						imgUrl: 'https://gw.alicdn.com/tfs/TB1IKqDtpooBKNjSZFPXXXa2XXa-183-144.png_.webp',
-						desc: 'IWC'
-					},
-					{
-						id: '0004',
-						imgUrl: 'https://gw.alicdn.com/tps/TB1eXc7PFXXXXb4XpXXXXXXXXXX-183-144.png?getAvatar=1_.webp',
-						desc: 'TISSOT'
-					},
-					{
-						id: '0005',
-						imgUrl: 'https://gw.alicdn.com/tps/TB1eXc7PFXXXXb4XpXXXXXXXXXX-183-144.png?getAvatar=1_.webp',
-						desc: 'TISSOT'
-					},
-					{
-						id: '0006',
-						imgUrl: 'https://gw.alicdn.com/tps/TB1eXc7PFXXXXb4XpXXXXXXXXXX-183-144.png?getAvatar=1_.webp',
-						desc: 'TISSOT'
-					},
-					{
-						id: '0007',
-						imgUrl: 'https://gw.alicdn.com/tps/TB1eXc7PFXXXXb4XpXXXXXXXXXX-183-144.png?getAvatar=1_.webp',
-						desc: 'TISSOT'
-					},
-					{
-						id: '0008',
-						imgUrl: 'https://gw.alicdn.com/tps/TB1eXc7PFXXXXb4XpXXXXXXXXXX-183-144.png?getAvatar=1_.webp',
-						desc: 'TISSOT'
-					},
-					{
-						id: '0009',
-						imgUrl: 'https://gw.alicdn.com/tps/TB1eXc7PFXXXXb4XpXXXXXXXXXX-183-144.png?getAvatar=1_.webp',
-						desc: 'TISSOT'
-					},
-				]
+				swiperOption: {
+					autoplay: false
+				}
 			}
 		},
-
 		computed:{
 			pages() {
 				const pages = [];
-				this.iconList.map((item,index)=>{
+				this.list.map((item, index) => {
 					const page = Math.floor(index/8)
 					if (!pages[page]) {
 						pages[page]=[]
@@ -91,7 +50,7 @@
 		height: 0
 		padding-bottom: 50%
 	.icons
-		margin-top:.1rem
+		margin-top: -0.7rem
 		.icon
 			position: relative
 			overflow hidden

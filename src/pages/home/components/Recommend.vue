@@ -2,7 +2,7 @@
 	<div>
 		<div class="title">查看详情</div>
 		<ul>
-			<li class="item border-bottom" v-for="item of recommendList" :key="item.id">
+			<li class="item border-bottom" v-for="item of list" :key="item.id">
 				<img class="item-img"
 					 :src="item.imgUrl"
 					 alt="">
@@ -19,14 +19,8 @@
 <script>
 	export default {
 		name: "HomeRecommend",
-		data() {
-			return {
-				recommendList: [
-					{id:'0001',imgUrl:'https://img1.qunarzz.com/p/tts3/1603/6e/649f8db09ea57bf7.jpg_r_240x160x90_02a57254.jpg',title:'斯文这下牛逼了',desc:'攻击力是现在的两倍'},
-					{id:'0002',imgUrl:'https://img1.qunarzz.com/p/tts3/1603/6e/649f8db09ea57bf7.jpg_r_240x160x90_02a57254.jpg',title:'斯文这下牛逼了',desc:'攻击力是现在的两倍'},
-					{id:'0003',imgUrl:'https://img1.qunarzz.com/p/tts3/1603/6e/649f8db09ea57bf7.jpg_r_240x160x90_02a57254.jpg',title:'斯文这下牛逼了',desc:'攻击力是现在的两倍'},
-				]
-			}
+		props: {
+			list: Array
 		}
 	}
 </script>
@@ -35,7 +29,8 @@
 	@import '~styles/mixins.styl'
 	.title
 		margin-top .2rem
-		line-height: .4rem
+		line-height: .6rem
+		font-weight bold
 		background #eee
 		text-indent .2rem
 
