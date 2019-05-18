@@ -5,11 +5,14 @@
 		</div>
 		<div class="header-input">
 			<span class="iconfont">&#xe632;</span>
+			搜索
 		</div>
-		<div class="header-right">
-			{{ this.city }}
-			<span class="iconfont arrow-icon">&#xe64a;</span>
-		</div>
+		<router-link to="/city">
+			<div class="header-right">
+				{{ this.city }}
+				<span class="iconfont arrow-icon">&#xe64a;</span>
+			</div>
+		</router-link>
 	</div>
 </template>
 
@@ -26,8 +29,8 @@
 	@import '~styles/varibles.styl'
 	.header
 		display: flex
-		line-height .86rem
-		height: .86rem
+		line-height $headerHeight
+		height: $headerHeight
 		background: $bgColor
 		color: #fff
 
@@ -54,6 +57,7 @@
 		.header-right
 			width: 1.24rem
 			float: right
+			color: white
 			text-align: center
 
 			.arrow-icon
