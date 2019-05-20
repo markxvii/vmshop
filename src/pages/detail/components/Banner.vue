@@ -2,16 +2,16 @@
 	<div>
 		<div class="banner" @click="handleBannerClick">
 			<img class="banner-img"
-				 src="https://img1.qunarzz.com/p/tts3/1506/48/f6c9f836b0b712.jpg_r_640x420x90_f0ddaf13.jpg" alt="">
+				 :src="bannerImg">
 			<div class="banner-info">
-				<div class="banner-title"></div>
+				<div class="banner-title">{{this.sightName}}</div>
 				<div class="banner-number">
 					<span class="iconfont banner-icon">&#xe64b;</span>
-					39
+					{{this.bannerImgs.length}}
 				</div>
 			</div>
 		</div>
-		<common-gallary :imgs="imgs" v-if="showGallary" @close="handleGallaryClose"></common-gallary>
+		<common-gallary :imgs="bannerImgs" v-if="showGallary" @close="handleGallaryClose"></common-gallary>
 	</div>
 </template>
 
@@ -20,10 +20,14 @@
 
 	export default {
 		name: "DetailBanner",
+		props: {
+			sightName: String,
+			bannerImg: String,
+			bannerImgs: Array,
+		},
 		data() {
 			return {
 				showGallary: false,
-				imgs: ['http://img1.qunarzz.com/sight/p0/1904/34/3400fe6160c9fec4a3.img.jpg_350x240_361022d6.jpg', 'http://img1.qunarzz.com/sight/p0/1904/34/3400fe6160c9fec4a3.img.jpg_350x240_361022d6.jpg']
 			}
 		},
 		methods: {
