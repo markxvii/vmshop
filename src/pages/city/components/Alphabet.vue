@@ -5,10 +5,10 @@
 			v-for="item of letters"
 			:key="item"
 			:ref="item"
-			@click="handleLetterClick"
-			@touchstart="handleTouchStart"
+			@touchstart.prevent="handleTouchStart"
 			@touchmove="handleTouchMove"
 			@touchend="handleTouchEnd"
+			@click="handleLetterClick"
 		>
 			{{item}}
 		</li>
@@ -17,15 +17,15 @@
 
 <script>
 	export default {
-		name: "CityAlphabet",
+		name: 'CityAlphabet',
 		props: {
 			cities: Object
 		},
 		computed: {
 			letters() {
-				const letters = [];
-				for (let k in this.cities) {
-					letters.push(k)
+				const letters = []
+				for (let i in this.cities) {
+					letters.push(i)
 				}
 				return letters
 			}
@@ -34,11 +34,11 @@
 			return {
 				touchStatus: false,
 				startY: 0,
-				timer: null,
+				timer: null
 			}
 		},
 		updated() {
-			this.startY = this.$refs['A'][0].offsetTop //指的是字母A距离父元素（此处是input框下沿距离A元素）的距离
+			this.startY = this.$refs['A'][0].offsetTop
 		},
 		methods: {
 			handleLetterClick(e) {
@@ -53,37 +53,35 @@
 						clearTimeout(this.timer)
 					}
 					this.timer = setTimeout(() => {
-						const touchY = e.touches[0].clientY - 79;
-						const index = Math.floor((touchY - this.startY) / 20);
+						const touchY = e.touches[0].clientY - 79
+						const index = Math.floor((touchY - this.startY) / 20)
 						if (index >= 0 && index < this.letters.length) {
-							this.$emit('change', this.letters[index]);
+							this.$emit('change', this.letters[index])
 						}
 					}, 16)
-
-
 				}
 			},
 			handleTouchEnd() {
 				this.touchStatus = false
-			},
-		},
+			}
+		}
 	}
 </script>
 
 <style lang="stylus" scoped>
-	@import "~styles/varibles.styl";
+	@import '~styles/varibles.styl'
 	.list
-		display flex
-		flex-direction column
-		justify-content center
-		position absolute
-		top 1.58rem
+		display: flex
+		flex-direction: column
+		justify-content: center
+		position: absolute
+		top: 1.58rem
 		right: 0
 		bottom: 0
-		width .4rem
+		width: .4rem
 
 		.item
-			line-height .4rem
+			line-height: .4rem
+			text-align: center
 			color: $bgColor
-			text-align center
 </style>

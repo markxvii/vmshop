@@ -1,15 +1,25 @@
 <template>
 	<div>
 		<div class="search">
-			<input type="text" v-model="keyword" placeholder="输入城市名或拼音" class="search-input">
+			<input v-model="keyword" class="search-input" type="text" placeholder="输入城市名或拼音"/>
 		</div>
-		<div class="search-content" ref="search" v-show="keyword">
+		<div
+			class="search-content"
+			ref="search"
+			v-show="keyword"
+		>
 			<ul>
-				<li @click="handleCityClick(item.name)" class="search-item border-bottom" v-for="item of list"
-					:key="item.id">
-					{{ item.name }}
+				<li
+					class="search-item border-bottom"
+					v-for="item of list"
+					:key="item.id"
+					@click="handleCityClick(item.name)"
+				>
+					{{item.name}}
 				</li>
-				<li class="search-item border-bottom" v-show="inputHasValue">没有匹配数据</li>
+				<li class="search-item border-bottom" v-show="hasNoData">
+					没有找到匹配数据
+				</li>
 			</ul>
 		</div>
 	</div>
@@ -20,16 +30,9 @@
 	import {mapMutations} from 'vuex'
 
 	export default {
-		name: "CitySearch",
+		name: 'CitySearch',
 		props: {
-			cities: Object,
-		},
-		methods: {
-			handleCityClick(city) {
-				this.changeCity(city)
-				this.$router.push('/')
-			},
-			...mapMutations(['changeCity'])
+			cities: Object
 		},
 		data() {
 			return {
@@ -39,7 +42,7 @@
 			}
 		},
 		computed: {
-			inputHasValue() {
+			hasNoData() {
 				return !this.list.length
 			}
 		},
@@ -55,17 +58,23 @@
 				this.timer = setTimeout(() => {
 					const result = []
 					for (let i in this.cities) {
-						this.cities[i].map((value) => {
+						this.cities[i].forEach((value) => {
 							if (value.spell.indexOf(this.keyword) > -1 || value.name.indexOf(this.keyword) > -1) {
 								result.push(value)
 							}
-						});
+						})
 					}
 					this.list = result
-				}, 100);
+				}, 100)
 			}
 		},
-
+		methods: {
+			handleCityClick(city) {
+				this.changeCity(city)
+				this.$router.push('/')
+			},
+			...mapMutations(['changeCity'])
+		},
 		mounted() {
 			this.scroll = new Bscroll(this.$refs.search)
 		}
@@ -73,35 +82,35 @@
 </script>
 
 <style lang="stylus" scoped>
-	@import "~styles/varibles.styl"
+	@import '~styles/varibles.styl'
 	.search
-		height .72rem
-		padding 0 .1rem
-		background $bgColor;
+		height: .72rem
+		padding: 0 .1rem
+		background: $bgColor
 
 		.search-input
-			box-sizing border-box
-			height .62rem
-			width 100%
-			padding 0 .1rem
-			line-height .62rem
-			text-align center
-			border-radius .06rem
-			color #666
+			box-sizing: border-box
+			width: 100%
+			height: .62rem
+			padding: 0 .1rem
+			line-height: .62rem
+			text-align: center
+			border-radius: .06rem
+			color: #666
 
 	.search-content
-		overflow hidden
-		position absolute
+		z-index: 1
+		overflow: hidden
+		position: absolute
 		top: 1.58rem
 		left: 0
 		right: 0
 		bottom: 0
-		background #eee
-		z-index: 1
+		background: #eee
 
 		.search-item
-			line-height .62rem
-			padding-left .2rem
-			background #fff
+			line-height: .62rem
+			padding-left: .2rem
+			background: #fff
 			color: #666
 </style>
